@@ -279,140 +279,43 @@
   <section class="section section-alt" id="photos">
     <div class="container">
       <h2 class="section-title fade-in">Photos</h2>
-      <div class="photo-filters fade-in">
-        <button class="photo-filter active" data-filter="all">All</button>
-        <button class="photo-filter" data-filter="live">Live</button>
-        <button class="photo-filter" data-filter="promo">Promo</button>
-        <button class="photo-filter" data-filter="studio">Studio</button>
-      </div>
-      <div class="photo-gallery fade-in" id="photo-gallery">
-        <!-- Full band shots first, then individual members -->
-        <div class="gallery-item" data-category="live">
-          <img src="photos/4FDC3EFB-992F-4C68-9A55-EDF32C779382.JPG" alt="The Royal Me full band at Midway Cafe" loading="lazy">
+      <div class="photo-carousel fade-in" id="photo-carousel">
+        <button class="photo-nav photo-prev" id="photo-prev" aria-label="Previous photos">&#8249;</button>
+        <div class="photo-track" id="photo-track">
+          <div class="photo-slide"><img src="photos/4FDC3EFB-992F-4C68-9A55-EDF32C779382.JPG" alt="The Royal Me full band at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/21944D0D-CE49-4213-A670-7258B4498A64.JPG" alt="The Royal Me full band on stage" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04309.jpg" alt="The Royal Me — guitar, Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04313.jpg" alt="The Royal Me live at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04314.jpg" alt="The Royal Me — bass, Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04322.jpg" alt="The Royal Me — drums at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04327.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04331.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04332.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04335.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04338.jpg" alt="The Royal Me — drums at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04342.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04346.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04349.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04356.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04357.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04358.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04361.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04364.jpg" alt="The Royal Me — vocals at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04368.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04371.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04373.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/DSC04375.jpg" alt="The Royal Me live" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/E5C2AF40-1B0E-4572-9E0C-07EF3C4A689E.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/34E0D7D8-E79A-401F-BC3C-356FB304BBEB.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/7AE4B856-E0F7-48FA-B00B-79728752E86D.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy"></div>
+          <div class="photo-slide"><img src="photos/AD66CE43-302D-42E2-9901-16B6D1895435.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy"></div>
         </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/21944D0D-CE49-4213-A670-7258B4498A64.JPG" alt="The Royal Me full band on stage" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04309.jpg" alt="The Royal Me — guitar, Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04313.jpg" alt="The Royal Me live at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04314.jpg" alt="The Royal Me — bass, Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04322.jpg" alt="The Royal Me — drums at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04327.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04331.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04332.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04335.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04338.jpg" alt="The Royal Me — drums at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04342.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04346.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04349.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04356.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04357.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04358.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04361.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04364.jpg" alt="The Royal Me — vocals at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04368.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04371.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04373.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/DSC04375.jpg" alt="The Royal Me live" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/E5C2AF40-1B0E-4572-9E0C-07EF3C4A689E.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/34E0D7D8-E79A-401F-BC3C-356FB304BBEB.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/7AE4B856-E0F7-48FA-B00B-79728752E86D.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy">
-        </div>
-        <div class="gallery-item" data-category="live">
-          <img src="photos/AD66CE43-302D-42E2-9901-16B6D1895435.JPG" alt="The Royal Me — guitar at Midway Cafe" loading="lazy">
-        </div>
+        <button class="photo-nav photo-next" id="photo-next" aria-label="Next photos">&#8250;</button>
       </div>
     </div>
   </section>
 
-  <!-- ================================================================
-       INSTAGRAM
-       Auto-updates: For a live feed, sign up for a free widget at
-       https://elfsight.com/instagram-feed-instashow/ or
-       https://embedsocial.com/free-instagram-widget/
-       Then replace the placeholder div below with the embed code.
-       ================================================================ -->
-  <section class="section section-alt" id="instagram">
-    <div class="container">
-      <h2 class="section-title fade-in">@theroyalmeband</h2>
-      <div class="instagram-feed fade-in">
-        <!--
-          TO ADD LIVE INSTAGRAM FEED:
-          1. Go to https://elfsight.com/instagram-feed-instashow/
-          2. Create a free widget and connect @theroyalmeband
-          3. Copy the embed code
-          4. Replace this entire .instagram-placeholder div with the embed code
-        -->
-        <div class="instagram-widget">
-          <script async src="https://app.instaplug.app/platform/instaplug.js" onload='
-            window.renderApp({
-              "containerId": "8269416b-4dd4-4aaf-af6a-f158bf5163d8",
-              "domain": "https://app.instaplug.app/",
-              "widgetClass": "",
-              "fontFamily": "",
-              "color": "",
-              "colorLink": "",
-              "colorLinkActive": "",
-              "colorLinkHover": ""
-            });
-          '></script>
-          <div id="8269416b-4dd4-4aaf-af6a-f158bf5163d8"></div>
-        </div>
-        <div class="instagram-cta">
-          <a href="https://www.instagram.com/theroyalmeband/" class="btn btn-outline" target="_blank" rel="noopener">
-            Follow @theroyalmeband &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Instagram section removed for now -->
 
   <!-- ================================================================
        ABOUT

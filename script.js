@@ -122,36 +122,55 @@
     elements.forEach(function (el) { observer.observe(el); });
   }
 
-  // --- Photo gallery filters ---
-  function initPhotoFilters() {
-    var filters = document.querySelectorAll('.photo-filter');
-    var items = document.querySelectorAll('.gallery-item');
-    if (!filters.length || !items.length) return;
+  // --- Photo carousel ---
+  function initPhotoCarousel() {
+    var track = document.getElementById('photo-track');
+    var prevBtn = document.getElementById('photo-prev');
+    var nextBtn = document.getElementById('photo-next');
+    if (!track || !prevBtn || !nextBtn) return;
 
-    filters.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var filter = this.getAttribute('data-filter');
+    var slides = track.querySelectorAll('.photo-slide');
+    var currentIndex = 0;
 
-        filters.forEach(function (b) { b.classList.remove('active'); });
-        this.classList.add('active');
+    function getPerPage() {
+      if (window.innerWidth <= 480) return 1;
+      if (window.innerWidth <= 768) return 2;
+      return 3;
+    }
 
-        items.forEach(function (item) {
-          if (filter === 'all' || item.getAttribute('data-category') === filter) {
-            item.classList.remove('hidden');
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-      });
+    function updateCarousel() {
+      var perPage = getPerPage();
+      var maxIndex = Math.max(0, slides.length - perPage);
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      var slideWidth = track.parentElement.offsetWidth;
+      var gap = 12; // 0.75rem
+      var singleWidth = (slideWidth - gap * (perPage - 1)) / perPage;
+      var offset = currentIndex * (singleWidth + gap);
+      track.style.transform = 'translateX(-' + offset + 'px)';
+    }
+
+    prevBtn.addEventListener('click', function () {
+      var perPage = getPerPage();
+      currentIndex = Math.max(0, currentIndex - perPage);
+      updateCarousel();
     });
+
+    nextBtn.addEventListener('click', function () {
+      var perPage = getPerPage();
+      var maxIndex = Math.max(0, slides.length - perPage);
+      currentIndex = Math.min(maxIndex, currentIndex + perPage);
+      updateCarousel();
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
   }
 
   // --- Photo lightbox ---
   function initLightbox() {
-    var gallery = document.getElementById('photo-gallery');
-    if (!gallery) return;
+    var carousel = document.getElementById('photo-carousel');
+    if (!carousel) return;
 
-    // Create lightbox element
     var lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
     lightbox.innerHTML = '<button class="lightbox-close" aria-label="Close">&times;</button>' +
@@ -161,17 +180,13 @@
     document.body.appendChild(lightbox);
 
     var lightboxImg = lightbox.querySelector('img');
+    var slides = Array.from(carousel.querySelectorAll('.photo-slide'));
     var currentIndex = 0;
 
-    function getVisibleItems() {
-      return Array.from(gallery.querySelectorAll('.gallery-item:not(.hidden)'));
-    }
-
     function openLightbox(index) {
-      var items = getVisibleItems();
-      if (index < 0 || index >= items.length) return;
+      if (index < 0 || index >= slides.length) return;
       currentIndex = index;
-      var img = items[index].querySelector('img');
+      var img = slides[index].querySelector('img');
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightbox.classList.add('open');
@@ -184,18 +199,16 @@
     }
 
     function navigate(dir) {
-      var items = getVisibleItems();
-      currentIndex = (currentIndex + dir + items.length) % items.length;
-      var img = items[currentIndex].querySelector('img');
+      currentIndex = (currentIndex + dir + slides.length) % slides.length;
+      var img = slides[currentIndex].querySelector('img');
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
     }
 
-    gallery.addEventListener('click', function (e) {
-      var item = e.target.closest('.gallery-item');
-      if (!item) return;
-      var items = getVisibleItems();
-      var index = items.indexOf(item);
+    carousel.addEventListener('click', function (e) {
+      var slide = e.target.closest('.photo-slide');
+      if (!slide) return;
+      var index = slides.indexOf(slide);
       if (index >= 0) openLightbox(index);
     });
 
@@ -314,7 +327,7 @@
     initSmoothScroll();
     initScrollAnimations();
     initVideoCarousel();
-    initPhotoFilters();
+    initPhotoCarousel();
     initLightbox();
     initShows();
   });
