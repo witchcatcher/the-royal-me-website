@@ -250,14 +250,21 @@
       'N0WBd1RBdl0'
     ];
 
+    // Shuffle video order on each page load
+    for (var i = videos.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = videos[i];
+      videos[i] = videos[j];
+      videos[j] = temp;
+    }
+
     var player = document.getElementById('video-player');
     var prevBtn = document.getElementById('video-prev');
     var nextBtn = document.getElementById('video-next');
     var dotsContainer = document.getElementById('video-dots');
     if (!player || !prevBtn || !nextBtn || !dotsContainer) return;
 
-    // Start on a random video
-    var currentIndex = Math.floor(Math.random() * videos.length);
+    var currentIndex = 0;
     player.src = 'https://www.youtube.com/embed/' + videos[currentIndex];
 
     // Create dots
