@@ -1,0 +1,321 @@
+/* ==========================================================================
+   THE ROYAL ME — script.js
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  // --- Star field generator ---
+  function createStars() {
+    const container = document.getElementById('stars');
+    if (!container) return;
+
+    const count = Math.floor(window.innerWidth * window.innerHeight / 800);
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+      star.style.setProperty('--max-opacity', (Math.random() * 0.7 + 0.3).toString());
+      star.style.animationDelay = Math.random() * 4 + 's';
+      fragment.appendChild(star);
+    }
+
+    container.appendChild(fragment);
+  }
+
+  // --- Navigation scroll behavior ---
+  function initNav() {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+
+    let ticking = false;
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          if (window.scrollY > 80) {
+            nav.classList.add('scrolled');
+          } else {
+            nav.classList.remove('scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // --- Mobile nav toggle ---
+  function initMobileNav() {
+    var toggle = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', function () {
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    links.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        links.classList.remove('open');
+        toggle.classList.remove('active');
+      });
+    });
+  }
+
+  // --- Smooth scroll for anchor links ---
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        var target = document.querySelector(targetId);
+        if (!target) return;
+
+        e.preventDefault();
+        var navHeight = document.getElementById('nav').offsetHeight;
+        var targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      });
+    });
+  }
+
+  // --- Scroll-triggered fade-in animations ---
+  function initScrollAnimations() {
+    var elements = document.querySelectorAll('.fade-in');
+    if (!elements.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    elements.forEach(function (el) { observer.observe(el); });
+  }
+
+  // --- Photo gallery filters ---
+  function initPhotoFilters() {
+    var filters = document.querySelectorAll('.photo-filter');
+    var items = document.querySelectorAll('.gallery-item');
+    if (!filters.length || !items.length) return;
+
+    filters.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var filter = this.getAttribute('data-filter');
+
+        filters.forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+
+        items.forEach(function (item) {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  // --- Photo lightbox ---
+  function initLightbox() {
+    var gallery = document.getElementById('photo-gallery');
+    if (!gallery) return;
+
+    // Create lightbox element
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = '<button class="lightbox-close" aria-label="Close">&times;</button>' +
+      '<button class="lightbox-nav lightbox-prev" aria-label="Previous">&lsaquo;</button>' +
+      '<img src="" alt="">' +
+      '<button class="lightbox-nav lightbox-next" aria-label="Next">&rsaquo;</button>';
+    document.body.appendChild(lightbox);
+
+    var lightboxImg = lightbox.querySelector('img');
+    var currentIndex = 0;
+
+    function getVisibleItems() {
+      return Array.from(gallery.querySelectorAll('.gallery-item:not(.hidden)'));
+    }
+
+    function openLightbox(index) {
+      var items = getVisibleItems();
+      if (index < 0 || index >= items.length) return;
+      currentIndex = index;
+      var img = items[index].querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function navigate(dir) {
+      var items = getVisibleItems();
+      currentIndex = (currentIndex + dir + items.length) % items.length;
+      var img = items[currentIndex].querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+    }
+
+    gallery.addEventListener('click', function (e) {
+      var item = e.target.closest('.gallery-item');
+      if (!item) return;
+      var items = getVisibleItems();
+      var index = items.indexOf(item);
+      if (index >= 0) openLightbox(index);
+    });
+
+    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox-prev').addEventListener('click', function (e) {
+      e.stopPropagation();
+      navigate(-1);
+    });
+    lightbox.querySelector('.lightbox-next').addEventListener('click', function (e) {
+      e.stopPropagation();
+      navigate(1);
+    });
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+  }
+
+  // --- Video carousel ---
+  function initVideoCarousel() {
+    var videos = [
+      'NFG_4Bky-xk',
+      'QaMdXRGJ2aw',
+      'PWnb8uWkoKI',
+      'JwXDDcw0xoo',
+      'vPE-0HXphHE',
+      'iUtdWfEMux8',
+      '-nE-6K9Q3kM',
+      'I_3dShC2-Nw',
+      'Hi34-HRkh6w',
+      '8mYhIqagwzU',
+      '3fIyqgxtPFo',
+      'N0WBd1RBdl0'
+    ];
+
+    var player = document.getElementById('video-player');
+    var prevBtn = document.getElementById('video-prev');
+    var nextBtn = document.getElementById('video-next');
+    var dotsContainer = document.getElementById('video-dots');
+    if (!player || !prevBtn || !nextBtn || !dotsContainer) return;
+
+    // Start on a random video
+    var currentIndex = Math.floor(Math.random() * videos.length);
+    player.src = 'https://www.youtube.com/embed/' + videos[currentIndex];
+
+    // Create dots
+    videos.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'video-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Video ' + (i + 1));
+      dot.addEventListener('click', function () { goTo(i); });
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      currentIndex = index;
+      player.src = 'https://www.youtube.com/embed/' + videos[currentIndex];
+      dotsContainer.querySelectorAll('.video-dot').forEach(function (d, i) {
+        d.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    prevBtn.addEventListener('click', function () {
+      goTo((currentIndex - 1 + videos.length) % videos.length);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      goTo((currentIndex + 1) % videos.length);
+    });
+  }
+
+  // --- Shows: set 6-month past date window + no-shows CTA ---
+  function initShows() {
+    // Set start date to 6 months ago for past shows
+    var widget = document.getElementById('bit-widget');
+    if (widget) {
+      var sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+      var dateStr = sixMonthsAgo.toISOString().split('T')[0];
+      widget.setAttribute('data-display-start-date', dateStr);
+    }
+
+    // Watch for the widget to load, then check for upcoming events
+    var cta = document.getElementById('no-shows-cta');
+    if (!cta) return;
+
+    // Poll the widget DOM to detect if there are upcoming events
+    var checks = 0;
+    var interval = setInterval(function () {
+      checks++;
+      var widgetContainer = document.querySelector('.bit-widget-container');
+      if (widgetContainer || checks > 20) {
+        clearInterval(interval);
+        // Look for the "no dates" message from Bandsintown
+        var noEvents = document.querySelector('.bit-no-dates-container');
+        var upcomingEvents = document.querySelectorAll('.bit-event');
+        // If no upcoming events found or "no dates" message exists, show CTA
+        if (noEvents || upcomingEvents.length === 0) {
+          cta.style.display = 'block';
+        }
+      }
+    }, 500);
+  }
+
+  // --- Init ---
+  document.addEventListener('DOMContentLoaded', function () {
+    createStars();
+    initNav();
+    initMobileNav();
+    initSmoothScroll();
+    initScrollAnimations();
+    initVideoCarousel();
+    initPhotoFilters();
+    initLightbox();
+    initShows();
+  });
+})();
