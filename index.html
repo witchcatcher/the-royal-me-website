@@ -241,33 +241,16 @@
   <section class="section" id="shows">
     <div class="container">
       <h2 class="section-title fade-in">Shows</h2>
-      <div class="shows-widget fade-in">
-        <a class="bit-widget-initializer"
-           id="bit-widget"
-           data-artist-name="id_2546533"
-           data-display-local-dates="false"
-           data-display-past-dates="true"
-           data-auto-style="false"
-           data-text-color="#2D2A26"
-           data-link-color="#E8734A"
-           data-background-color="transparent"
-           data-display-limit="15"
-           data-display-lineup="false"
-           data-display-play-my-city="false"
-           data-display-track-button="false"
-           data-display-start-date=""
-           data-separator-color="rgba(45,42,38,0.12)">
-        </a>
+      <div class="shows-tabs fade-in">
+        <button class="shows-tab active" data-tab="upcoming">Upcoming</button>
+        <button class="shows-tab" data-tab="past">Past</button>
       </div>
+      <div class="shows-list fade-in" id="shows-upcoming"></div>
+      <div class="shows-list fade-in" id="shows-past" style="display: none;"></div>
       <div class="shows-more fade-in" style="text-align: center; margin-top: 1.5rem;">
         <a href="https://www.bandsintown.com/a/2546533-the-royal-me" class="btn btn-outline" target="_blank" rel="noopener">
           See All Shows &rarr;
         </a>
-      </div>
-      <!-- Shows when no upcoming dates -->
-      <div class="no-shows-cta fade-in" id="no-shows-cta" style="display: none;">
-        <p>No upcoming shows right now.</p>
-        <a href="http://eepurl.com/dHknBz" class="btn btn-primary" target="_blank" rel="noopener">Sign up for shows near you &rarr;</a>
       </div>
     </div>
   </section>
@@ -399,9 +382,6 @@
       <div class="footer-robot">01010100 01001000 01000101 00100000 01010010 01001111 01011001 01000001 01001100 00100000 01001101 01000101</div>
     </div>
   </footer>
-
-  <!-- Bandsintown Widget -->
-  <script charset="utf-8" src="https://widget.bandsintown.com/main.min.js"></script>
 
   <!-- Site JS -->
   <script src="script.js"></script>
