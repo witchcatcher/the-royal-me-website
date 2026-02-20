@@ -311,14 +311,12 @@
     var checks = 0;
     var interval = setInterval(function () {
       checks++;
-      var widgetContainer = document.querySelector('.bit-widget-container');
-      if (widgetContainer || checks > 20) {
+      var noEvents = document.querySelector('.bit-no-dates-container');
+      if (noEvents) {
         clearInterval(interval);
-        var noEvents = document.querySelector('.bit-no-dates-container');
-        var upcomingEvents = document.querySelectorAll('.bit-event');
-        if (noEvents || upcomingEvents.length === 0) {
-          cta.style.display = 'block';
-        }
+        cta.style.display = 'block';
+      } else if (checks > 20) {
+        clearInterval(interval);
       }
     }, 500);
   }
