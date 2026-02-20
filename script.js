@@ -364,7 +364,8 @@
       var lineup = (e.lineup || []).filter(function (a) {
         return a.toLowerCase() !== 'the royal me';
       });
-      var ticketUrl = (e.offers && e.offers.length) ? e.offers[0].url : e.url;
+      var hasTickets = e.offers && e.offers.length;
+      var ticketUrl = hasTickets ? e.offers[0].url : e.url;
 
       var html = '<div class="show-item">' +
         '<div class="show-date">' +
@@ -377,7 +378,7 @@
           (lineup.length ? '<div class="show-lineup">w/ ' + lineup.join(', ') + '</div>' : '') +
         '</div>';
       if (showTicket && ticketUrl) {
-        html += '<div class="show-ticket"><a href="' + ticketUrl + '" target="_blank" rel="noopener">Tickets</a></div>';
+        html += '<div class="show-ticket"><a href="' + ticketUrl + '" target="_blank" rel="noopener">' + (hasTickets ? 'Tickets' : 'More Info') + '</a></div>';
       }
       html += '</div>';
       return html;
