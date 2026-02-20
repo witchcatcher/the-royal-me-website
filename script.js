@@ -295,94 +295,32 @@
     });
   }
 
-  // --- Shows: fetch from Bandsintown API + tabs ---
+  // --- Shows: set 6-month past date window + no-shows CTA ---
   function initShows() {
-    var upcomingEl = document.getElementById('shows-upcoming');
-    var pastEl = document.getElementById('shows-past');
-    if (!upcomingEl || !pastEl) return;
-
-    var API = 'https://rest.bandsintown.com/artists/id_2546533/events?app_id=squarespace-the-royal-me';
-    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    upcomingEl.innerHTML = '<div class="shows-loading">Loading shows...</div>';
-
-    // Fetch upcoming
-    fetch(API)
-      .then(function (r) { return r.json(); })
-      .then(function (events) {
-        if (!events.length) {
-          upcomingEl.innerHTML =
-            '<div class="shows-empty"><p>No upcoming shows right now.</p>' +
-            '<a href="http://eepurl.com/dHknBz" class="btn btn-primary" target="_blank" rel="noopener">Sign up for shows near you &rarr;</a></div>';
-          return;
-        }
-        upcomingEl.innerHTML = events.map(function (e) { return renderShow(e, true); }).join('');
-      })
-      .catch(function () {
-        upcomingEl.innerHTML = '<div class="shows-loading">Could not load shows.</div>';
-      });
-
-    // Fetch past (lazy — only on first tab click)
-    var pastLoaded = false;
-
-    // Tab switching
-    var tabs = document.querySelectorAll('.shows-tab');
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var target = this.getAttribute('data-tab');
-        tabs.forEach(function (t) { t.classList.remove('active'); });
-        this.classList.add('active');
-        upcomingEl.style.display = target === 'upcoming' ? '' : 'none';
-        pastEl.style.display = target === 'past' ? '' : 'none';
-
-        if (target === 'past' && !pastLoaded) {
-          pastLoaded = true;
-          pastEl.innerHTML = '<div class="shows-loading">Loading past shows...</div>';
-          fetch(API + '&date=past')
-            .then(function (r) { return r.json(); })
-            .then(function (events) {
-              if (!events.length) {
-                pastEl.innerHTML = '<div class="shows-empty"><p>No past shows found.</p></div>';
-                return;
-              }
-              events.reverse();
-              pastEl.innerHTML = events.map(function (e) { return renderShow(e, false); }).join('');
-            })
-            .catch(function () {
-              pastEl.innerHTML = '<div class="shows-loading">Could not load past shows.</div>';
-            });
-        }
-      });
-    });
-
-    function renderShow(e, showTicket) {
-      var d = new Date(e.datetime);
-      var month = MONTHS[d.getMonth()];
-      var day = d.getDate();
-      var venue = e.venue.name || '';
-      var city = [e.venue.city, e.venue.region, e.venue.country].filter(Boolean).join(', ');
-      var lineup = (e.lineup || []).filter(function (a) {
-        return a.toLowerCase() !== 'the royal me';
-      });
-      var hasTickets = e.offers && e.offers.length;
-      var ticketUrl = hasTickets ? e.offers[0].url : e.url;
-
-      var html = '<div class="show-item">' +
-        '<div class="show-date">' +
-          '<div class="show-date-month">' + month + '</div>' +
-          '<div class="show-date-day">' + day + '</div>' +
-        '</div>' +
-        '<div class="show-info">' +
-          '<div class="show-venue">' + venue + '</div>' +
-          '<div class="show-location">' + city + '</div>' +
-          (lineup.length ? '<div class="show-lineup">w/ ' + lineup.join(', ') + '</div>' : '') +
-        '</div>';
-      if (showTicket && ticketUrl) {
-        html += '<div class="show-ticket"><a href="' + ticketUrl + '" target="_blank" rel="noopener">' + (hasTickets ? 'Tickets' : 'More Info') + '</a></div>';
-      }
-      html += '</div>';
-      return html;
+    var widget = document.getElementById('bit-widget');
+    if (widget) {
+      var sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+      var dateStr = sixMonthsAgo.toISOString().split('T')[0];
+      widget.setAttribute('data-display-start-date', dateStr);
     }
+
+    var cta = document.getElementById('no-shows-cta');
+    if (!cta) return;
+
+    var checks = 0;
+    var interval = setInterval(function () {
+      checks++;
+      var widgetContainer = document.querySelector('.bit-widget-container');
+      if (widgetContainer || checks > 20) {
+        clearInterval(interval);
+        var noEvents = document.querySelector('.bit-no-dates-container');
+        var upcomingEvents = document.querySelectorAll('.bit-event');
+        if (noEvents || upcomingEvents.length === 0) {
+          cta.style.display = 'block';
+        }
+      }
+    }, 500);
   }
 
   // --- Init ---

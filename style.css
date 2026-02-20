@@ -610,145 +610,35 @@ h1, h2, h3, h4 {
 /* ==========================================================================
    SHOWS SECTION
    ========================================================================== */
-.shows-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.shows-tab {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  border: 1.5px solid var(--border);
-  border-radius: 100px;
-  background: transparent;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.shows-tab:hover {
-  border-color: var(--coral);
-  color: var(--coral);
-}
-
-.shows-tab.active {
-  background: var(--coral);
-  border-color: var(--coral);
-  color: white;
-}
-
-.shows-list {
+.shows-widget {
   max-width: 700px;
   margin: 0 auto;
-  min-height: 100px;
+  min-height: 200px;
 }
 
-.show-item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--border);
+/* Override Bandsintown widget styles to match our aesthetic */
+.bit-widget .bit-event {
+  font-family: var(--font-body) !important;
 }
 
-.show-item:last-child {
-  border-bottom: none;
+.bit-no-dates-container {
+  font-family: var(--font-mono) !important;
 }
 
-.show-date {
+.no-shows-cta {
   text-align: center;
-  min-width: 50px;
-  flex-shrink: 0;
-}
-
-.show-date-month {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--coral);
-  letter-spacing: 0.05em;
-}
-
-.show-date-day {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1;
-}
-
-.show-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.show-venue {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--text);
-}
-
-.show-location {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  margin-top: 0.15rem;
-}
-
-.show-lineup {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.25rem;
-  font-family: var(--font-mono);
-}
-
-.show-ticket {
-  flex-shrink: 0;
-}
-
-.show-ticket a {
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.4rem 1rem;
-  border: 1.5px solid var(--coral);
-  border-radius: 100px;
-  color: var(--coral);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.show-ticket a:hover {
-  background: var(--coral);
-  color: white;
-}
-
-.shows-empty {
-  text-align: center;
+  margin-top: 2rem;
   padding: 2rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--bg-alt);
 }
 
-.shows-empty p {
+.no-shows-cta p {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-light);
   margin-bottom: 1.25rem;
-}
-
-.shows-loading {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
 }
 
 /* ==========================================================================
@@ -1180,17 +1070,6 @@ h1, h2, h3, h4 {
   .listen-link {
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .show-item {
-    gap: 1rem;
-  }
-
-  .show-ticket a {
-    padding: 0.35rem 0.75rem;
-    font-size: 0.75rem;
   }
 }
 
