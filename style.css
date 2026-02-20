@@ -353,19 +353,11 @@ h1, h2, h3, h4 {
 /* ==========================================================================
    MUSIC SECTION
    ========================================================================== */
-.music-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
 .music-stream {
   margin-bottom: 2.5rem;
 }
 
-.music-stream h3,
-.music-label {
+.music-stream h3 {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -703,24 +695,6 @@ h1, h2, h3, h4 {
 .photo-prev { left: 0.5rem; }
 .photo-next { right: 0.5rem; }
 
-.gallery-placeholder {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 3rem 2rem;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius-lg);
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.gallery-placeholder code {
-  background: rgba(45, 42, 38, 0.08);
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-}
-
 /* Lightbox */
 .lightbox {
   display: none;
@@ -794,25 +768,6 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   INSTAGRAM SECTION
-   ========================================================================== */
-.instagram-feed {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.instagram-widget {
-  max-width: 100%;
-  margin: 0 auto 1.5rem;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.instagram-cta {
-  text-align: center;
-}
-
-/* ==========================================================================
    ABOUT SECTION
    ========================================================================== */
 .about-content {
@@ -835,55 +790,6 @@ h1, h2, h3, h4 {
   color: var(--text);
 }
 
-.members {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-}
-
-.members h3 {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-light);
-  margin-bottom: 0.75rem;
-}
-
-.members ul {
-  list-style: none;
-}
-
-.members li {
-  font-size: 0.95rem;
-  padding: 0.3rem 0;
-  color: var(--text);
-}
-
-.members li strong {
-  font-weight: 600;
-}
-
-.photo-placeholder {
-  aspect-ratio: 3 / 4;
-  background: var(--bg-alt);
-  border: 2px dashed var(--border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.photo-note {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
 .about-photo img {
   width: 100%;
   border-radius: var(--radius-lg);
@@ -895,34 +801,6 @@ h1, h2, h3, h4 {
    ========================================================================== */
 .mailing-list {
   text-align: center;
-}
-
-.signup-form {
-  display: flex;
-  gap: 0.75rem;
-  max-width: 440px;
-  margin: 0 auto 1rem;
-}
-
-.signup-form input[type="email"] {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  background: var(--bg);
-  color: var(--text);
-  transition: border-color 0.2s;
-}
-
-.signup-form input[type="email"]:focus {
-  outline: none;
-  border-color: var(--coral);
-}
-
-.signup-form input[type="email"]::placeholder {
-  color: var(--text-muted);
 }
 
 .form-note {
@@ -1044,11 +922,6 @@ h1, h2, h3, h4 {
 
   .about-photo {
     order: -1;
-  }
-
-  /* Signup form */
-  .signup-form {
-    flex-direction: column;
   }
 
   /* Hero */
