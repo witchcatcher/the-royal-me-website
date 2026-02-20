@@ -236,6 +236,8 @@
   // --- Video carousel ---
   function initVideoCarousel() {
     var videos = [
+      'hXZBcf5A15Q',
+      'O58VC3oU25I',
       'NFG_4Bky-xk',
       'QaMdXRGJ2aw',
       'PWnb8uWkoKI',
