@@ -129,6 +129,14 @@
     var nextBtn = document.getElementById('photo-next');
     if (!track || !prevBtn || !nextBtn) return;
 
+    // Shuffle photo order on each page load
+    var slidesArr = Array.from(track.querySelectorAll('.photo-slide'));
+    for (var i = slidesArr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      track.appendChild(slidesArr[j]);
+      slidesArr[j] = slidesArr[i];
+    }
+
     var slides = track.querySelectorAll('.photo-slide');
     var currentIndex = 0;
 
